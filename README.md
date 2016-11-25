@@ -1,1 +1,1 @@
-# BingMapAndroid V8 support only
+# Bing Map Android V8
