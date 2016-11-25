@@ -21,6 +21,8 @@ import java.util.List;
  */
 
 class MapController {
+    private String TAG = getClass().getSimpleName();
+
     private BingMap.OnMapClickListener mOnMapClickListener;
     private BingMap.OnInfoBoxClickListener mOnInfoboxActionListener;
     private IPushpinClickCallback mOnPushpinClickCallback;
@@ -102,8 +104,10 @@ class MapController {
     private void initMapClickListener() {
         IBindMapClickCallback iBindMapClickCallback = new IBindMapClickCallback() {
             @Override
-            public void onMapClick(Location latLng) {
-                //// TODO: 11/7/16
+            public void onMapClick(Location location) {
+                if (mOnMapClickListener != null) {
+                    mOnMapClickListener.onMapClick(location);
+                }
             }
         };
         JsCommandService.getInstance().observe(iBindMapClickCallback, IBindMapClickCallback.class);

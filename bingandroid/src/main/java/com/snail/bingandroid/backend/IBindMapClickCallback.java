@@ -9,5 +9,5 @@ import com.snail.bingandroid.serialization.entry.Location;
  */
 
 public interface IBindMapClickCallback extends BaseCallback {
-    void onMapClick(Location latLng);
+    void onMapClick(Location location);
 }

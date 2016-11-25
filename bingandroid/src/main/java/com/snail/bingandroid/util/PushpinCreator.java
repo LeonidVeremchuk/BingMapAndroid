@@ -27,6 +27,13 @@ public class PushpinCreator {
         return this;
     }
 
+    public PushpinCreator setLocation(Location location) {
+        if (mPushpin.getLocation() == null) {
+            mPushpin.setLocation(location);
+        }
+        return this;
+    }
+
     public PushpinCreator setInfobox(String title, String description) {
         if (mPushpin.getLocation() == null) {
             throw new NullPointerException("Please set current Pushpin location before set Infobox data");
