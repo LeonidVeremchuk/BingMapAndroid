@@ -28,8 +28,8 @@ public class Pushpin extends BaseBingEntry implements ISerializable {
         return this;
     }
 
-    public Pushpin getPushpinsOptions() {
-        return (Pushpin) mValues.get(getEntryName(Pushpin.class));
+    public PushpinOptions getPushpinsOptions() {
+        return (PushpinOptions) mValues.get(getEntryName(PushpinOptions.class));
     }
 
     public Location getLocation() {

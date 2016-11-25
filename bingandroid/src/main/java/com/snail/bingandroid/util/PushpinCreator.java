@@ -75,13 +75,27 @@ public class PushpinCreator {
         return this;
     }
 
-
-    public PushpinCreator setPushingColor(String color) {
-        PushpinOptions pushpinOptions = new PushpinOptions();
-        pushpinOptions.setColor(color);
-        mPushpin.setPushpinOptions(pushpinOptions);
+    public PushpinCreator setPushpinDraggableMode(boolean draggable) {
+        PushpinOptions pushpinOptions = mPushpin.getPushpinsOptions();
+        if (pushpinOptions == null) {
+            pushpinOptions = new PushpinOptions();
+        }
+        pushpinOptions.setDraggable(draggable);
         return this;
     }
+
+    /**
+     * You can use url, base64 or svg resources;
+     */
+    public PushpinCreator setIcon(String resource) {
+        PushpinOptions pushpinOptions = mPushpin.getPushpinsOptions();
+        if (pushpinOptions == null) {
+            pushpinOptions = new PushpinOptions();
+        }
+        pushpinOptions.setIcon(resource);
+        return this;
+    }
+
 
     public Pushpin create() {
         return mPushpin;
