@@ -113,6 +113,6 @@ public class BingMap {
     }
 
     public interface OnMapClickListener {
-        void onMapClick(Location latLng);
+        void onMapClick(Location location);
     }
 }

@@ -56,7 +56,7 @@ class JsCommandService {
     }
 
     void loadPushpins(List<ISerializable> pushpinList) {
-        mIBindMapJsCommandCallback.loadFunction("javascript:addPushpinsArrayWithInfobox(" + Arrays.toString(new SerializationManager<>().serializeToStringArray(pushpinList)) + ")");
+        mIBindMapJsCommandCallback.loadFunction("javascript:addPushpinsArray(" + Arrays.toString(new SerializationManager<>().serializeToStringArray(pushpinList)) + ")");
     }
 
     void addPushpinClickListener() {

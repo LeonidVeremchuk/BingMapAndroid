@@ -8,6 +8,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.snail.bingandroid.backend.base.IBackendObserverCallback;
+import com.snail.bingandroid.serialization.entry.Location;
 
 /**
  * Created by Leonid Veremchuk on 11/3/16.
@@ -23,14 +24,16 @@ public class JsBingMapClickInterface {
     }
 
     @JavascriptInterface
-    public void onMapClick(Object object) {
+    public void onMapClick(String jsLocation) {
         Log.i(TAG, "onMapClick");
+        final Location location = new Location(jsLocation);
+
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 IBindMapClickCallback callback = (IBindMapClickCallback) mHandler.getInterface(IBindMapClickCallback.class);
                 if (callback != null) {
-                    callback.onMapClick(null);
+                    callback.onMapClick(location);
                 }
             }
         });
