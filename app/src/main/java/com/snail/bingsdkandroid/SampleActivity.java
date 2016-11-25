@@ -57,6 +57,9 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
         pushpinCreator.setInfobox("Test", "Infobox");
         pushpinCreator.setPushpinDraggableMode(true);
 
+        pushpinCreator.setIcon("https://www.bingmapsportal.com/Content/images/poi_custom.png");
+
+
         mBingMap.addPushpin(pushpinCreator.create());
     }
 }

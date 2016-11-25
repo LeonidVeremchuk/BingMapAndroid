@@ -84,6 +84,19 @@ public class PushpinCreator {
         return this;
     }
 
+    /**
+     * You can use url, base64 or svg resources;
+     */
+    public PushpinCreator setIcon(String resource) {
+        PushpinOptions pushpinOptions = mPushpin.getPushpinsOptions();
+        if (pushpinOptions == null) {
+            pushpinOptions = new PushpinOptions();
+        }
+        pushpinOptions.setIcon(resource);
+        return this;
+    }
+
+
     public Pushpin create() {
         return mPushpin;
     }
