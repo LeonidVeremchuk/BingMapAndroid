@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>loadMapSyncHTML</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+  <script type='text/javascript'
+  src='http://www.bing.com/api/maps/mapcontrol?branch=release'></script>
+  <script type='text/javascript'>
+
+  var infoboxArray = [];
+
+  function onScriptLoad(){
+    JsBingMapScriptLoadInterface.onScriptLoadSuccess();
+  }
+
+  var map;
+
+  function loadMapScenario(key) {
+    map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+      credentials: key
+    });
+
+    map.setOptions({
+      showZoomButtons:false,
+      showDashboard: false
+    });
+
+    JsBingMapReadyInterface.onMapReady();
+  }
+
+  function setLocation(latitude, longitude) {
+    map.setView({
+      center: new Microsoft.Maps.Location(latitude, longitude),
+      zoom: 15
+    });
+  }
+
+  function addPushpin(javaPushpin){
+    var pushpin = new Microsoft.Maps.Pushpin(javaPushpin.location, javaPushpin.pushpinoptions);
+    JsPushpinAddInterface.onPushpinAdded();
+    map.entities.push(pushpin);
+  }
+
+  function addPushpinWithHandler(javaPushpin){
+    var pushpin = new Microsoft.Maps.Pushpin(javaPushpin.location, javaPushpin.pushpinoptions);
+    Microsoft.Maps.Events.addHandler(pushpin, 'click', function(args){
+      JsPushpinClickInterface.onPushpinClick(args);
+    });
+    map.entities.push(pushpin);
+  }
+
+  function addPushpinWithInfobox(javaPushpin){
+    var pushpin = new Microsoft.Maps.Pushpin(javaPushpin.location, javaPushpin.pushpinoptions);
+    var infobox = new Microsoft.Maps.Infobox(pushpin.location, { visible: false });
+    infobox.id = javaPushpin.id;
+    infoboxArray[infoboxArray.length] = infobox;
+    infobox.setMap(map);
+    pushpin.metadata = javaPushpin.infobox.infoboxoptions;
+
+    Microsoft.Maps.Events.addHandler(pushpin, 'click', function (args) {
+      args.target.metadata.actions[0].eventHandler = function() {
+        JsInfoboxActionInterface.onLabelClick(javaPushpin.id)
+      };
+
+      infobox.setOptions({
+        location: args.target.getLocation(),
+        visible: true
+      });
+
+      infobox.setOptions(args.target.metadata);
+    });
+    map.entities.push(pushpin);
+  }
+
+  function addPushpinWithInfoboxVisible(javaPushpin){
+    var pushpin = new Microsoft.Maps.Pushpin(javaPushpin.location, javaPushpin.pushpinoptions);
+    var infobox = new Microsoft.Maps.Infobox(pushpin.location, { visible: false });
+
+    infobox.id = javaPushpin.id;
+    infoboxArray[infoboxArray.length] = infobox;
+
+    infobox.setMap(map);
+    pushpin.metadata = javaPushpin.infobox.infoboxoptions;
+
+    javaPushpin.infobox.infoboxoptions.actions[0].eventHandler = function() {
+      JsInfoboxActionInterface.onLabelClick(javaPushpin.id)
+    };
+
+    infobox.setOptions({
+      location: pushpin.getLocation(),
+      visible: true
+    });
+
+    infobox.setOptions(javaPushpin.infobox.infoboxoptions);
+
+    Microsoft.Maps.Events.addHandler(pushpin, 'click', function (args) {
+      args.target.metadata.actions[0].eventHandler = function() {
+        JsInfoboxActionInterface.onLabelClick(javaPushpin.id)
+      };
+
+      infobox.setOptions({
+        location: args.target.getLocation(),
+        visible: true
+      });
+
+      infobox.setOptions(args.target.metadata);
+    });
+    map.entities.push(pushpin);
+  }
+
+  function addPushpinsArrayWithInfobox(javaPushpinsArray){
+
+    for (var i = 0; i < javaPushpinsArray.length; i++) {
+      var pushpin = new Microsoft.Maps.Pushpin(javaPushpinsArray[i].location, javaPushpinsArray[i].pushpinoptions);
+      var infobox = new Microsoft.Maps.Infobox(javaPushpinsArray[i].location, {visible: false});
+
+      (function() {
+        try {
+          var closurePushpin = pushpin;
+          javaPushpinsArray[i].infobox.infoboxoptions.actions[0].eventHandler = function(args) {
+            console.log(args);
+            JsInfoboxActionInterface.onLabelClick(closurePushpin.id)
+          };
+
+        } catch (err) {
+        }
+      })();
+
+      //infobox.setOptions(javaPushpinsArray[i].infobox.infoboxoptions);
+      //infobox.setOptions({visible:false});
+      infobox.setMap(map);
+
+
+      pushpin.metadata = javaPushpinsArray[i].infobox.infoboxoptions;
+      pushpin.infobox = infobox;
+
+      pushpin.id = javaPushpinsArray[i].id;
+      infobox.id = pushpin.id;
+      infoboxArray[infoboxArray.length] = infobox;
+
+      Microsoft.Maps.Events.addHandler(pushpin, 'click', function (args) {
+        pushpin.infobox.setOptions({
+          location: args.target.getLocation(),
+          visible: true
+        });
+
+        pushpin.infobox.setOptions(args.target.metadata);
+      });
+      map.entities.push(pushpin);
+    }
+  }
+
+  function showInfobox(javaInfobox){
+    javaInfobox.visible=true;
+    var infobox = new Microsoft.Maps.Infobox(map.getCenter(), javaInfobox.infoboxoptions);
+    infobox.id = -1;
+    infoboxArray[infoboxArray.length] = infobox;
+    infobox.setMap(map);
+  }
+
+  function clearPushpins(){
+    for (var i = map.entities.getLength() - 1; i >= 0; i--) {
+      var pushpin = map.entities.get(i);
+      map.entities.removeAt(i);
+    }
+
+    for (var i = infoboxArray.length - 1; i >= 0; i--) {
+      infoboxArray[i].setMap(null);
+    }
+    JsPushpinRemoveInterface.onPushpinRemove();
+  }
+
+  function addPushpinClickListener(){
+    for (var i = map.entities.getLength() - 1; i >= 0; i--) {
+      var pushpin = map.entities.get(i);
+      Microsoft.Maps.Events.addHandler(pushpin, 'click', function (args) {
+        JsPushpinClickInterface.onPushpinClick(args)
+      });
+    }
+  }
+
+  function moveCamera(cameraUpdate){
+    var bounds = Microsoft.Maps.LocationRect.fromLocations(cameraUpdate.location);
+    cameraUpdate.viewoptions.bounds = bounds;
+    map.setView(cameraUpdate.viewoptions);
+  }
+
+  function getScreenLocation(javaLocation){
+    var location  = map.getCenter();
+    location.latitude = javaLocation.latitude;
+    location.longitude = javaLocation.longitude;
+    var point = map.tryLocationToPixel(location, Microsoft.Maps.PixelReference.control);
+
+    JsBingScreenLocationInterface.onPoint(point.x,point.y);
+  }
+
+  function updateViewOptions(viewOptions){
+    map.setView(viewOptions);
+  }
+
+  function updateMapOptions(mapOptions){
+    map.setOptions(mapOptions);
+  }
+
+  </script>
+</head>
+<body onload='onScriptLoad();' style="margin: 0px;">
+  <div id='printoutPanel'></div>
+
+  <div id='myMap' style='width: 100vw; height: 100vh;'></div>
+</body>
+</html>
