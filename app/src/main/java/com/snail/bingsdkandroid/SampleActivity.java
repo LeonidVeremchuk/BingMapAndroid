@@ -50,11 +50,12 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
         createPushpin(latLng);
     }
 
-    private void createPushpin(Location location){
+    private void createPushpin(Location location) {
         PushpinCreator pushpinCreator = new PushpinCreator(String.valueOf(new Random().nextInt()));
         pushpinCreator.setLocation(location);
         pushpinCreator.setPushingColor(Color.Colors.BLUE);
-        pushpinCreator.setInfobox("Test","Infobox");
+        pushpinCreator.setInfobox("Test", "Infobox");
+        pushpinCreator.setPushpinDraggableMode(true);
 
         mBingMap.addPushpin(pushpinCreator.create());
     }

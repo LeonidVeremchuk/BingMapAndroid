@@ -16,6 +16,11 @@ public class PushpinOptions extends BaseBingEntry implements ISerializable {
         return this;
     }
 
+    public PushpinOptions setDraggable(boolean draggable) {
+        mValues.put("draggable", draggable);
+        return this;
+    }
+
     @Override
     public String toJsObject() {
         return toBaseString(mValues);
