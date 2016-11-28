@@ -58,7 +58,7 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
 ## Create default Pushpins:
 
 ```
-   private void createPushpin(Location location) {
+   private void createPushpin() {
         if(mBingMap!=null){
             PushpinCreator pushpinCreator = new PushpinCreator(String.valueOf(new Random().nextInt()));
             pushpinCreator.setLocation(40.69,73.88);
