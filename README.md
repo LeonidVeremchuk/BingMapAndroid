@@ -3,6 +3,8 @@
 
 ###How to use:
 ## XML:
+
+activity_sample.xml
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
@@ -23,7 +25,13 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
     private BingMap mBingMap;
     private MapView mMapView;
     
-        private void initMap() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sample);
+    }
+    
+    private void initMap() {
         mMapView = (MapView) findViewById(R.id.map_view);
         mMapView.getMapAsync("Your Bing API Key", this);
     }
@@ -46,6 +54,20 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
     }
     
 ```
+
+## Create default Pushpins:
+
+```
+   private void createPushpin(Location location) {
+        if(mBingMap!=null){
+            PushpinCreator pushpinCreator = new PushpinCreator(String.valueOf(new Random().nextInt()));
+            pushpinCreator.setLocation(40.69,73.88);
+            pushpinCreator.setIcon("https://www.bingmapsportal.com/Content/images/poi_custom.png");
+            mBingMap.addPushpin(pushpinCreator.create());
+        }
+    }
+```
+
 ###License
 ```
 Copyright 2016 SnailPro, Inc.
