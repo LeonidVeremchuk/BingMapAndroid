@@ -74,6 +74,29 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 ```
 
+### Remove Pushpins:
+```
+   private void clearPushpins(){
+       if(mBingMap!=null){
+          mBingMap.clear()
+       }
+   }
+```
+## Map Settings:
+
+### Update Map Options:
+```
+    private void updateMapOtions(){
+        if(mBingMap!=null){
+            MapOption mapOption = new MapOption();
+            mapOption.setZoomLevel(5,15);
+            mapOption.showDashboard(true);
+            mapOption.showLocalMeButton(true);
+            mapOption.showZoomButton(true);
+            mBingMap.updateMapOptions(mapOption);
+        }
+    }
+
 ##License
 ```
 Copyright 2016 SnailPro, Inc.
