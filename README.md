@@ -96,7 +96,7 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
             mBingMap.updateMapOptions(mapOption);
         }
     }
-
+```
 ##License
 ```
 Copyright 2016 SnailPro, Inc.
