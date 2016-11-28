@@ -1,8 +1,14 @@
 # Bing Map Android V8
  Porting Bing Maps v8 to android using standart [API](http://www.bing.com/api/maps/sdk/mapcontrol/isdk#loadMapAsync+JS) 
-
-###How to use:
-## XML:
+ 
+ 
+ 
+####Current version 1.0
+ 
+ <img src="https://github.com/LeonidVeremchuk/BingMapAndroid/blob/master/bingmap.jpg" width="300">
+ 
+##How to use:
+### XML:
 
 activity_sample.xml
 ```
@@ -18,7 +24,7 @@ activity_sample.xml
         android:layout_height="match_parent"/>
 </LinearLayout>
 ```
-## Activity/Fragment BingMap setup:
+### Activity/Fragment BingMap setup:
 
 ```
 public class SampleActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -55,7 +61,7 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
     
 ```
 
-## Create default Pushpins:
+### Create default Pushpins:
 
 ```
    private void createPushpin() {
@@ -68,7 +74,7 @@ public class SampleActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 ```
 
-###License
+##License
 ```
 Copyright 2016 SnailPro, Inc.
 
