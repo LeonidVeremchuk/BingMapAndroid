@@ -53,7 +53,7 @@
 
       pushpin.metadata = javaPushpin.infobox.infoboxoptions;
       Microsoft.Maps.Events.addHandler(pushpin, 'click', function (args) {
-        // currently support onlu one Label - index 0 in array
+        // currently support only one Label - index 0 in array
         if(typeof args.target.metadata.actions!=='undefined'){
           args.target.metadata.actions[0].eventHandler = function() {
             JsInfoboxActionInterface.onLabelClick(javaPushpin.id)
